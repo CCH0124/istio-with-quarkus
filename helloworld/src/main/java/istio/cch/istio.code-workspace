@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../../order"
+		},
+		{
+			"name": "helloworld",
+			"path": "../../../../.."
+		},
+		{
+			"path": "../../../../../../product"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "interactive"
+	}
+}
