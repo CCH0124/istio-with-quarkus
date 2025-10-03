@@ -64,3 +64,7 @@ If you want to learn more about building native executables, please consult <htt
 
 
 ## Building Image
+
+```bash
+$ gradle quarkusBuild -Dquarkus.native.enabled=true -Dquarkus.package.jar.enabled=false -Dquarkus.native.container-build=true -Dquarkus.kubernetes.deploy=false  -Dquarkus.container-image.push=true  -Dquarkus.container-image.build=true -Dquarkus.container-image.additional-tags="v0.0.1.dev"  -Dquarkus.container-image.username=${USER} -Dquarkus.container-image.password=${PASSWORD}
+```

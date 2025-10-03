@@ -3,10 +3,13 @@
   "kind" : "Service",
   "metadata" : {
     "annotations" : {
-      "app.quarkus.io/quarkus-version" : "3.24.4"
+      "app.quarkus.io/quarkus-version" : "3.24.4",
+      "app.quarkus.io/vcs-uri" : "https://github.com/CCH0124/istio-with-quarkus.git"
     },
     "labels" : {
       "app.kubernetes.io/name" : "order",
+      "version" : "v0.0.1",
+      "sidecar.istio.io/inject" : "true",
       "app.kubernetes.io/managed-by" : "quarkus"
     },
     "name" : "order",
@@ -29,10 +32,13 @@
   "kind" : "Deployment",
   "metadata" : {
     "annotations" : {
-      "app.quarkus.io/quarkus-version" : "3.24.4"
+      "app.quarkus.io/quarkus-version" : "3.24.4",
+      "app.quarkus.io/vcs-uri" : "https://github.com/CCH0124/istio-with-quarkus.git"
     },
     "labels" : {
       "app.kubernetes.io/name" : "order",
+      "version" : "v0.0.1",
+      "sidecar.istio.io/inject" : "true",
       "app.kubernetes.io/managed-by" : "quarkus"
     },
     "name" : "order",
@@ -48,9 +54,12 @@
     "template" : {
       "metadata" : {
         "annotations" : {
-          "app.quarkus.io/quarkus-version" : "3.24.4"
+          "app.quarkus.io/quarkus-version" : "3.24.4",
+          "app.quarkus.io/vcs-uri" : "https://github.com/CCH0124/istio-with-quarkus.git"
         },
         "labels" : {
+          "version" : "v0.0.1",
+          "sidecar.istio.io/inject" : "true",
           "app.kubernetes.io/managed-by" : "quarkus",
           "app.kubernetes.io/name" : "order"
         }
@@ -64,8 +73,21 @@
                 "fieldPath" : "metadata.namespace"
               }
             }
+          }, {
+            "name" : "POD_NAME",
+            "valueFrom" : {
+              "fieldRef" : {
+                "fieldPath" : "metadata.name"
+              }
+            }
+          }, {
+            "name" : "QUARKUS_REST_CLIENT_PRODUCT_SERVICE_CLIENT_URL",
+            "value" : "http://istio-lab.cch.com:9080"
+          }, {
+            "name" : "QUARKUS_APPLICATION_VERSION",
+            "value" : "v0.0.1"
           } ],
-          "image" : "registry.hub.docker.com/cch0124/order:1.0.0-SNAPSHOT",
+          "image" : "registry.hub.docker.com/cch0124/order:v0.0.1",
           "imagePullPolicy" : "Always",
           "livenessProbe" : {
             "failureThreshold" : 3,
@@ -97,6 +119,16 @@
             "successThreshold" : 1,
             "timeoutSeconds" : 10
           },
+          "resources" : {
+            "limits" : {
+              "cpu" : "1000m",
+              "memory" : "512Mi"
+            },
+            "requests" : {
+              "cpu" : "250m",
+              "memory" : "64Mi"
+            }
+          },
           "startupProbe" : {
             "failureThreshold" : 3,
             "httpGet" : {
@@ -109,6 +141,10 @@
             "successThreshold" : 1,
             "timeoutSeconds" : 10
           }
+        } ],
+        "hostAliases" : [ {
+          "hostnames" : [ "istio-lab.cch.com" ],
+          "ip" : "192.168.153.132"
         } ]
       }
     }

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.cch.client.ProductServiceClient;
+import org.cch.dto.Order;
+import org.cch.dto.OrderRequest;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
